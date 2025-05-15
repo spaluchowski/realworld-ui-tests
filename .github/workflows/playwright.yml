@@ -19,10 +19,6 @@ jobs:
       - name: Clone realworld app
         run: git clone https://github.com/NemTam/realworld-django-rest-framework-angular.git app
 
-      - name: Build Docker images for realworld app
-        working-directory: ./app
-        run: docker-compose build
-
       - name: Start app in background
         working-directory: ./app
         run: docker-compose up -d
@@ -30,7 +26,7 @@ jobs:
       - name: Wait for backend to be ready
         run: |
           for i in {1..20}; do
-            if curl -s http://localhost:8080/api/tags/ > /dev/null; then
+            if curl -s http://localhost:8000/ > /dev/null; then
               echo "Backend is ready"
               break
             fi
