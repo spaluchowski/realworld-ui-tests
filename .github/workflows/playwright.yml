@@ -21,7 +21,7 @@ jobs:
 
       - name: Start app in background
         working-directory: ./app
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Wait for backend to be ready
         run: |
@@ -47,4 +47,4 @@ jobs:
       - name: Shutdown app
         if: always()
         working-directory: ./app
-        run: docker-compose down
+        run: docker compose down
