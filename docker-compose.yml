@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  django-backend:
+    image: nemtam/realworld-django-rest-framework-angular:latest
+    ports:
+      - "8000:8000"
+    networks:
+      - realworld-network
+
+  angular-frontend:
+    image: nemtam/realworld-django-rest-framework-angular-web:latest
+    ports:
+      - "4200:4200"
+    environment:
+      - API_URL=http://django-backend:8000/api
+    depends_on:
+      - django-backend
+    networks:
+      - realworld-network
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - BASE_URL=http://angular-frontend:4200
+      - API_URL=http://django-backend:8000/api
+      - CI=true
+    volumes:
+      - ./test-results:/app/test-results
+    depends_on:
+      - angular-frontend
+      - django-backend
+    networks:
+      - realworld-network
+
+networks:
+  realworld-network:
+    driver: bridge

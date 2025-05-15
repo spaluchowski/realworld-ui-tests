@@ -1,0 +1,32 @@
+{
+  "name": "realworld-ui-tests",
+  "version": "1.0.0",
+  "description": "UI Automated Tests for RealWorld Django Rest Framework Angular App",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "docker:build": "docker build -t realworld-ui-tests .",
+    "docker:test": "docker run --rm -v $(pwd)/test-results:/app/test-results realworld-ui-tests"
+  },
+  "keywords": [
+    "playwright",
+    "typescript",
+    "ui-testing",
+    "automation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@testcontainers/postgresql": "^10.2.1",
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^20.9.0",
+    "dotenv": "^16.3.1",
+    "js-yaml": "^4.1.0",
+    "testcontainers": "^10.2.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}

@@ -1,0 +1,15 @@
+baseUrl: "http://localhost:4200"
+apiUrl: "http://localhost:8000/api"
+testUser:
+  email: "test@example.com"
+  username: "testuser"
+  password: "Test12345!"
+docker:
+  network: "realworld-network"
+  djangoImage: "nemtam/realworld-django-rest-framework-angular:latest"
+  angularImage: "nemtam/realworld-django-rest-framework-angular-web:latest"
+  djangoPort: 8000
+  angularPort: 4200
+timeout:
+  navigation: 30000
+  element: 5000
