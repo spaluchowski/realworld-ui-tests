@@ -35,8 +35,7 @@ This project contains UI automated tests for the RealWorld Django Rest Framework
 
 1. Start the RealWorld application using Docker:
    ```bash
-   docker run -d -p 8000:8000 nemtam/realworld-django-rest-framework-angular:latest
-   docker run -d -p 4200:4200 -e API_URL=http://localhost:8000/api nemtam/realworld-django-rest-framework-angular-web:latest
+    sh ./run_local.sh
    ```
 
 2. Run the tests:
@@ -44,7 +43,11 @@ This project contains UI automated tests for the RealWorld Django Rest Framework
    npm test
    ```
 
-#### Option 2: Using TestContainers (automatically manages containers)
+#### Option 2: Using TestContainers (automatically manages containers) 
+
+---
+**Note:** UNFINISHED - This option is not yet implemented, but should be straightforward.
+---
 
 Run tests with TestContainers enabled:
 ```bash

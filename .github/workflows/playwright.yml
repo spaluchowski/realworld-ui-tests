@@ -1,0 +1,54 @@
+name: Run UI Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Clone realworld app
+        run: git clone https://github.com/NemTam/realworld-django-rest-framework-angular.git app
+
+      - name: Build Docker images for realworld app
+        working-directory: ./app
+        run: docker-compose build
+
+      - name: Start app in background
+        working-directory: ./app
+        run: docker-compose up -d
+
+      - name: Wait for backend to be ready
+        run: |
+          for i in {1..20}; do
+            if curl -s http://localhost:8080/api/tags/ > /dev/null; then
+              echo "Backend is ready"
+              break
+            fi
+            echo "Waiting for backend..."
+            sleep 5
+          done
+
+      - name: Run tests
+        run: npx playwright test --reporter html
+
+      - name: Upload Playwright HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+
+      - name: Shutdown app
+        if: always()
+        working-directory: ./app
+        run: docker-compose down

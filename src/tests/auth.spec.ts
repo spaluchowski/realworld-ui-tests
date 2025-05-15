@@ -33,9 +33,22 @@ test.describe('Authentication', () => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login('wrong@example.com', 'wrongpassword');
+
+    // Set up listener for network responses to catch the 401
+    let authResponse = null;
+    await page.route('**/api/users/login', route => {
+      route.continue();
+    });
+
+    page.on('response', response => {
+      if (response.url().includes('/api/users/login')) {
+        authResponse = response;
+      }
+    });
     
     await loginPage.verifyLoginErrorMessage('Invalid email or password');
-    
+    expect(authResponse!.status()).toBe(401);
+
     const homePage = new HomePage(page);
     await homePage.goto();
     await homePage.verifyUserIsLoggedOut();
