@@ -16,6 +16,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install pw
+        run: npx playwright install
+
       - name: Clone realworld app
         run: git clone https://github.com/NemTam/realworld-django-rest-framework-angular.git app
 
