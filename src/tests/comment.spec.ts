@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { EditorPage } from '../pages/EditorPage';
-import { CommentSection } from '../pages/CommentSection';
+import { EditorPage } from '@/pages/EditorPage';
+import { CommentSection } from '@/pages/CommentSection';
 import {MyProfilePage} from "@/pages/MyProfilePage";
 import {getRegisteredAndLoggedUser} from "@/utils/fixtures";
 
